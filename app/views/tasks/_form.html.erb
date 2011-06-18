@@ -1,0 +1,27 @@
+<%= form_for(@task) do |f| %>
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <p>Oops. This shit is no good because:</p>
+      <ul>
+      <% @task.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :due %>
+    <%= f.datetime_select :due, :prompt => true %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Save this shit"%>
+  </div>
+<% end %>

@@ -1,0 +1,74 @@
+<section id="right_column" class="right">
+  <h1>Add Shit <span class="toggle_next_element subtle">-/+</span></h1>
+  <div id="add" class="hideable">
+    <%= render 'form' %>
+  </div>
+  <% if !@completed_tasks.empty? %>
+    <h1>Completed Shit <span class="subtle">[<%= @completed_tasks.count %>]</span> <span class="toggle_next_element subtle">-/+</span></h1>
+    <div id="completed" class="hideable">
+      <table>
+        <% @completed_tasks.each do |task| %>
+          <tr>
+            <td><%= task.title %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
+</section>
+<section id="left_column">
+  <h1>Pending Shit</h1>
+  <table id="pending">
+    <tr>
+      <th></th>
+      <th>Due</th>
+      <th>Task</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <% @pending_tasks.each do |task_type| %>
+      <% task_type.each do |task| %>
+        <tr class="top_line">
+          <td></td>
+          <td class="subtle">
+            <% if task.due !nil %>
+              <% if 1.day.from_now >= task.due && task.due > DateTime.now %>
+                <%= distance_of_time_in_words(DateTime.now, task.due) %> from now
+              <% elsif task.due > 1.day.from_now %>
+                <%= task.due.strftime('%B %d %I:%M %p') %>
+              <% else %>
+                <%= time_ago_in_words(task.due) %> ago
+              <% end %>
+            <% else %>
+              -
+            <% end %>
+          </td>
+          <td><%= task.title %></td>
+          <td id="stopwatch"></td>
+          <td>
+            <%= form_for(task) do |f| %>
+              <%= f.hidden_field :complete, :value => DateTime.now %>
+              <div class="actions">
+                <%= f.submit "Completed"%>
+              </div>
+            <% end %>
+          </td>
+          <td class="toggle_next_element subtle">-/+</td>
+        </tr>
+        <tr class="hideable default_hidden">
+          <td colspan="3" class="subtle"><%= task.description %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</section>
+<script>
+  $(document).ready(function(){
+    $('.toggle_next_element').click(function(event){
+      $(this).parent().next('.hideable').slideToggle('slow');
+    });
+    $('#stopwatch').stopwatch();
+  });
+</script>

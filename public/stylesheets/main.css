@@ -1,0 +1,91 @@
+@import url('reset.css');
+
+body {
+  font-family: arial, sans-serif;
+  color: #0A0E00;
+}
+h1 {
+  font-size: 1.5em;
+  margin: 0em 0em .3em;
+  font-family: georgia, serif;
+  color: #84A92D;
+}
+p {
+  margin: 0em 0em 1em;
+}
+label {
+  display: block;
+}
+
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.inner {
+  width: 900px;
+  margin: 0px auto 0px;
+}
+.overdue {
+  background: #A3A689;
+  color: #A3A689;
+}
+
+.field {
+  font-size: .75em;
+  margin: 0px 0px 7px;
+}
+.subtle {
+  color: #666;
+  font-size: .75em;
+  font-style: italic;
+}
+.default_hidden {
+  display: none;
+}
+#app_header {
+  background: #0A0E00;
+  padding: 10px;
+  color: #D1F95A;
+  font-size: 1.7em;
+  font-weight: bold;
+  font-family: georgia, serif;
+  margin: 0px 0px 20px;
+  border-bottom: 3px solid #D1F95A;
+}
+#app_header_time {
+  width: 150px;
+  display: inline;
+}
+#content {
+  clear: both;
+}
+#left_column {
+  width: 559px;
+  padding: 0px 20px 0px 0px;
+  border-right: 1px #0A0E00 solid;
+}
+#right_column {
+  width: 300px;
+}
+#pending {
+  width: 559px;
+}
+th, td {
+  padding: 5px;
+}
+
+#task_description {
+  width: 294px;
+  height: 40px;
+}
+#task_title {
+  width: 294px;
+}
+#add {
+  margin: 0px 0px 20px;
+}
+.top_line {
+  border-top: 1px #0A0E00 solid;
+}
