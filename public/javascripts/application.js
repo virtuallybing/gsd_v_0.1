@@ -8,10 +8,12 @@ $(document).ready(function(){
   $('#due_date').datetimepicker({
     stepMinute: 15,
     minuteMax: 45,
-    ampm: true,
-    hour: 17
+    ampm: true
   });
-  $('#add_due_date:checked').click(function(){
+  var defaultDate = new Date();
+  defaultDate.setHours(17,0);
+  $('#due_date').datetimepicker('setDate', (defaultDate));
+  $('#include_due_date').click(function(){
     $('#task_submit').click(function(){
       $('#task_due').val($('#due_date').datetimepicker('getDate'));
     });
