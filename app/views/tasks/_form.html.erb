@@ -1,13 +1,13 @@
 <%= form_for(@task) do |f| %>
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <p>Oops. This shit is no good because:</p>
-      <ul>
-      <% @task.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+  <% if @task.errors.any? %>  
+    <div id="task_form_errors" class="messages">  
+      Oops. Clean up this shit:
+      <ul>  
+        <% @task.errors.full_messages.each do |msg| %>  
+          - <%= msg %>
+        <% end %>  
+      </ul>  
+    </div>  
   <% end %>
   <div class="field">
     <%= f.label :title %>
@@ -18,8 +18,10 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :due %>
-    <%= f.datetime_select :due, :prompt => true %>
+    Include due date <%= check_box_tag 'include due date', 1, false, :class => 'toggle_next_element' %>
+  </div>
+  <div id="due_date" class="field hideable default_hidden">
+    <%= f.hidden_field :due %>
   </div>
   <div class="actions">
     <%= f.submit "Save this shit"%>

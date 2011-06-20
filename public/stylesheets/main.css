@@ -1,22 +1,36 @@
 @import url('reset.css');
 
+/* Pseudo-classes */
+
 body {
   font-family: arial, sans-serif;
-  color: #0A0E00;
+  color: rgb(10, 14, 0);
 }
 h1 {
   font-size: 1.5em;
   margin: 0em 0em .3em;
   font-family: georgia, serif;
-  color: #84A92D;
+  color: rgb(132, 169, 45);
 }
 p {
   margin: 0em 0em 1em;
 }
-label {
-  display: block;
+th {
+  text-align: left;
+}
+th, td {
+  padding: 5px;
 }
 
+/* Classes */
+
+.messages {
+  width: 100%;
+  color: rgb(209, 249, 90);
+  font-style: italic;
+  background: rgb(102, 102, 102);
+  font-size: .75em;
+}
 .left {
   float: left;
 }
@@ -27,55 +41,84 @@ label {
   width: 900px;
   margin: 0px auto 0px;
 }
-.overdue {
-  background: #A3A689;
-  color: #A3A689;
-}
-
 .field {
   font-size: .75em;
   margin: 0px 0px 7px;
 }
 .subtle {
-  color: #666;
+  color: rgb(102, 102, 102);
   font-size: .75em;
   font-style: italic;
 }
 .default_hidden {
   display: none;
 }
+.margin_bottom_20 {
+  margin: 0px 0px 20px;
+}
+.top_line {
+  border-top: 1px rgb(102, 102, 102) solid;
+}
+.overdue {
+  background: rgba(209, 249, 90, .2);
+}
+.due_today {
+  background: rgba(132, 169, 45, .2);
+}
+.ui-timepicker-div .ui-widget-header {
+  margin-bottom: 8px;
+}
+.ui-timepicker-div dl{
+  text-align: left;
+}
+.ui-timepicker-div dl dt {
+  height: 25px;
+}
+.ui-timepicker-div dl dd {
+  margin: -25px 0 10px 65px;
+}
+.ui-timepicker-div td {
+  font-size: 90%;
+}
+.due_cell {
+  width: 115px;
+}
+.title_cell {
+  width: 300px;
+}
+
+/* Ids */
+
 #app_header {
-  background: #0A0E00;
+  background: rgb(10, 14, 0);
   padding: 10px;
-  color: #D1F95A;
+  color: rgb(209, 249, 90);
   font-size: 1.7em;
   font-weight: bold;
   font-family: georgia, serif;
+  border-bottom: 2px solid rgb(132, 169, 45);
+}
+#messages {
+  height: 1em;
+  padding: .25em 0em .25em;
   margin: 0px 0px 20px;
-  border-bottom: 3px solid #D1F95A;
-}
-#app_header_time {
-  width: 150px;
-  display: inline;
-}
-#content {
-  clear: both;
+  background: rgb(102, 102, 102);
+  text-align: right;
+  
 }
 #left_column {
   width: 559px;
   padding: 0px 20px 0px 0px;
-  border-right: 1px #0A0E00 solid;
+  border-right: 1px rgb(10, 14, 0) solid;
 }
 #right_column {
   width: 300px;
 }
-#pending {
-  width: 559px;
-}
-th, td {
+#task_form_errors {
   padding: 5px;
+  width: 290px;
+  margin: 0px 0px 10px;
 }
-
 #task_description {
   width: 294px;
   height: 40px;
@@ -83,9 +126,15 @@ th, td {
 #task_title {
   width: 294px;
 }
-#add {
-  margin: 0px 0px 20px;
+#due_date {
+  margin: 0px auto 7px;
+  width: 230px;
 }
-.top_line {
-  border-top: 1px #0A0E00 solid;
+#completed_table {
+  width: 100%;
 }
+#pending_table {
+  width: 559px;
+}
+
+/* css for timepicker */
