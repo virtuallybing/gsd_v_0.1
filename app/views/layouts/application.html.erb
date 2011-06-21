@@ -11,7 +11,7 @@
   <body>
     <div id="app_header">
       <div id="app_header_inner" class="inner">
-        Get Shit Done
+        <%= link_to 'Get Shit Done', :root %>
         <div class="right">
           <span class="subtle"><%= Time.now.strftime('%B %d') %></span>
           <%= Time.now.strftime('%I:%M') %>
@@ -19,9 +19,17 @@
         </div>
       </div>
     </div>
-    <div id="messages">
-      <div id="messages_inner" class="inner messages">
-        <%= render 'shared/messages' %>
+    <div id="menu_and_messages">
+      <div id="menu_and_messages_inner" class="inner">
+        <nav id="menu">
+          <ul>
+            <li><%= link_to 'Home', root_path %></li>
+            <li><%= link_to 'Add Shit', new_task_path %></li>
+          </ul>
+        </nav>
+        <div id="messages" class="messages right">
+          <%= render 'shared/messages' %>
+        </div>
       </div>
     </div>
     <section id="content" class="inner">

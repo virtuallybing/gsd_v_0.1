@@ -1,101 +1,73 @@
 <section id="right_column" class="right">
-  <h1>Add Shit <span class="toggle_next_element subtle">-/+</span></h1>
-  <div id="add" class="hideable margin_bottom_20">
-    <%= render 'form' %>
+  <div id="add" class="margin_bottom_20">
+    <h1>Add Shit</h1>
+    <%= form_for(@task) do |f| %>
+      <div class="field">
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+      </div>
+      <div class="actions">
+        <%= f.submit "Quick add this shit"%>
+      </div>
+    <% end %>
   </div>
-  <% if Task.completed_today.any? %>
-    <h1>Completed Shit <span class="subtle">[<%= Task.completed_today.count %>]</span> <span class="toggle_next_element subtle">-/+</span></h1>
-    <div id="completed" class="hideable">
-      <table id="completed_table">
-        <% Task.completed_today.each do |task| %>
-          <tr class="top_line">
-            <td><%= task.title %></td>
-          </tr>
-        <% end %>
-      </table>
-    </div>
-  <% end %>
+  <h1>Completed Shit <span class="subtle">[<%= @tasks_completed_today.count %>]</span> <span class="toggle_next_element subtle">-/+</span></h1>
+  <div id="complete"  class="hideable">
+    <table id="completed_table">
+      <% if @tasks_completed_today.count == 0 %>
+        <tr class="top_line subtle">
+          <td>You ain't done shit</td>
+        </tr>
+      <% end %>
+      <% @tasks_completed_today.each do |task| %>
+        <tr class="top_line subtle">
+          <td><%= task.title %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 </section>
 <section id="left_column">
-  <h1>Pending Shit</h1>
+  <h1>Pending Shit <span class="subtle">[<%= @pending_tasks_count %>]</span></h1>
   <table id="pending_table">
     <tr>
       <th>Due</th>
       <th>Task</th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
-    <% Task.overdue.each do |task| %>
-      <tr class="overdue top_line">
-        <td class="subtle due_cell"><%= time_ago_in_words(task.due).capitalize %> ago</td>
-        <td class="title_cell"><%= task.title %></td>
-        <td>
-          <%= form_for(task) do |f| %>
-            <%= f.hidden_field :complete, :value => DateTime.now %>
-            <div class="actions">
-              <%= f.submit "Completed"%>
-            </div>
-          <% end %>
-        </td>
-        <td class="toggle_next_element subtle">-/+</td>
-      </tr>
-      <tr class="hideable default_hidden">
-        <td colspan="3" class="subtle"><%= task.description %></td>
-      </tr>
-    <% end %>
-    <% Task.due_today.each do |task| %>
-      <tr class="due_today top_line">
-        <td class="subtle due_cell">In <%= distance_of_time_in_words(Time.now, task.due) %></td>
-        <td class="title_cell"><%= task.title %></td>
-        <td>
-          <%= form_for(task) do |f| %>
-            <%= f.hidden_field :complete, :value => DateTime.now %>
-            <div class="actions">
-              <%= f.submit "Completed"%>
-            </div>
-          <% end %>
-        </td>
-        <td class="toggle_next_element subtle">-/+</td>
-      </tr>
-      <tr class="hideable default_hidden">
-        <td colspan="3" class="subtle"><%= task.description %></td>
-      </tr>
-    <% end %>
-    <% Task.no_due_date.each do |task| %>
-      <tr class="top_line">
-        <td class="subtle due_cell">-</td>
-        <td class="title_cell"><%= task.title %></td>
-        <td>
-          <%= form_for(task) do |f| %>
-            <%= f.hidden_field :complete, :value => DateTime.now %>
-            <div class="actions">
-              <%= f.submit "Completed"%>
-            </div>
-          <% end %>
-        </td>
-        <td class="toggle_next_element subtle">-/+</td>
-      </tr>
-      <tr class="hideable default_hidden">
-        <td colspan="3" class="subtle"><%= task.description %></td>
-      </tr>
-    <% end %>
-    <% Task.due_beyond_today.each do |task| %>
-      <tr class="top_line">
-        <td class="subtle due_cell">In <%= distance_of_time_in_words(Time.now, task.due) %></td>
-        <td class="title_cell"><%= task.title %></td>
-        <td>
-          <%= form_for(task) do |f| %>
-            <%= f.hidden_field :complete, :value => DateTime.now %>
-            <div class="actions">
-              <%= f.submit "Completed"%>
-            </div>
-          <% end %>
-        </td>
-        <td class="toggle_next_element subtle">-/+</td>
-      </tr>
-      <tr class="hideable default_hidden">
-        <td colspan="3" class="subtle"><%= task.description %></td>
-      </tr>
+    <% @pending_tasks.each do |task_group, tr_class| %>
+      <% task_group.each do |task| %>
+        <tr class="top_line <%= tr_class %>">
+          <td class="subtle due_cell">
+            <% if task.due.nil? %>
+              -
+            <% elsif task.due < Time.now %>
+              <%= time_ago_in_words(task.due).capitalize %> ago
+            <% else %>
+              Due in <%= distance_of_time_in_words(Time.now, task.due) %>
+            <% end %>
+          </td>
+          <td class="title_cell"><%= task.title %></td>
+          <td colspan="2">
+            <%= form_for(task) do |f| %>
+              <%= f.hidden_field :complete, :value => DateTime.now %>
+              <div class="actions">
+                <%= f.submit "Complete" %>
+              </div>
+            <% end %>
+          </td>
+          <td class="toggle_next_element subtle">-/+</td>
+        </tr>
+        <tr class="hideable default_hidden <%= tr_class %>">
+          <td></td>
+          <td class="subtle"><%= task.description %></td>
+          <td><%= link_to 'Edit', edit_task_path(task), :class => 'gray_button' %></td>
+          <td><%= link_to 'X', task, :confirm => 'Make this shit go away?', :method => :delete, :class => 'red_button' %>
+          <td></td>
+        </tr>
+      <% end %>
     <% end %>
   </table>
 </section>

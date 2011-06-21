@@ -1,4 +1,5 @@
 class Task < ActiveRecord::Base
+  belongs_to :schedule
   validates :title, :presence => true
   scope :completed_today, where("complete < ? AND complete > ?", Time.now.end_of_day(), Time.now.beginning_of_day()).order("complete")
   scope :overdue, where("complete IS NULL AND due < ?", Time.now).order("due")

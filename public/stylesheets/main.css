@@ -19,17 +19,35 @@ th {
   text-align: left;
 }
 th, td {
-  padding: 5px;
+  padding: 6px;
+  line-height: 1em;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+input[type="submit"], #left_column a {
+  border-radius: 7px;
+  background: rgb(132, 169, 45);
+  border: none;
+  color: rgb(255, 255, 255);
+  font-family: arial, sans-serif;
+  font-size: 12px;
+  padding: 3px 5px 3px;
+  margin: 0px;
+}
+label {
+  display: block;
 }
 
 /* Classes */
 
 .messages {
-  width: 100%;
   color: rgb(209, 249, 90);
   font-style: italic;
   background: rgb(102, 102, 102);
   font-size: .75em;
+  clear: none;
 }
 .left {
   float: left;
@@ -81,10 +99,10 @@ th, td {
   font-size: 90%;
 }
 .due_cell {
-  width: 115px;
+  width: 125px;
 }
 .title_cell {
-  width: 300px;
+  width: 325px;
 }
 
 /* Ids */
@@ -98,7 +116,7 @@ th, td {
   font-family: georgia, serif;
   border-bottom: 2px solid rgb(132, 169, 45);
 }
-#messages {
+#menu_and_messages {
   height: 1em;
   padding: .25em 0em .25em;
   margin: 0px 0px 20px;
@@ -106,35 +124,40 @@ th, td {
   text-align: right;
   
 }
-#left_column {
-  width: 559px;
-  padding: 0px 20px 0px 0px;
-  border-right: 1px rgb(10, 14, 0) solid;
+#menu li {
+  float: left;
+  margin: 0px 15px 0px 0px;
+  font-size: .8em;
+  color: rgb(255, 255, 255);
 }
 #right_column {
-  width: 300px;
+  width: 275px;
+  padding: 0px 0px 0px 20px;
+  border-left: 1px rgb(10, 14, 0) solid;
+  min-height: 590px;
+  margin: 0px 0px 0px 20px;
 }
 #task_form_errors {
   padding: 5px;
-  width: 290px;
+  width: 265px;
   margin: 0px 0px 10px;
 }
 #task_description {
-  width: 294px;
+  width: 269px;
   height: 40px;
 }
 #task_title {
-  width: 294px;
-}
-#due_date {
-  margin: 0px auto 7px;
-  width: 230px;
+  width: 269px;
 }
 #completed_table {
   width: 100%;
 }
 #pending_table {
-  width: 559px;
+  width: 584px;
 }
-
-/* css for timepicker */
+#left_column .gray_button {
+  background: rgb(102, 102, 102);
+}
+#left_column .red_button {
+  background: rgb(166, 18, 18);
+}

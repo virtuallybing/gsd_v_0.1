@@ -10,10 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110616211250) do
+ActiveRecord::Schema.define(:version => 20110620222906) do
+
+  create_table "schedules", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tasks", :force => true do |t|
-    t.time     "duration"
     t.datetime "due"
     t.string   "title"
     t.string   "description"
@@ -21,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20110616211250) do
     t.datetime "updated_at"
     t.integer  "status"
     t.datetime "complete"
+    t.integer  "schedule_id"
   end
 
 end

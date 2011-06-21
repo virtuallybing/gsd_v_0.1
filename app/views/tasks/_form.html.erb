@@ -20,8 +20,14 @@
   <div class="field">
     Include due date <%= check_box_tag 'include due date', 1, false, :class => 'toggle_next_element' %>
   </div>
-  <div id="due_date" class="field hideable default_hidden">
-    <%= f.hidden_field :due %>
+  <div id="task_form_options" class="hideable default_hidden">
+    <div id="due_date" class="field">
+      <%= f.hidden_field :due %>
+    </div>
+    <div class=field>
+      <%= f.label :schedule_id, 'Repeat this task:' %>
+      <%= f.select :schedule_id, Schedule.all.collect { |s| [ s.name, s.id ] } %>
+    </div>
   </div>
   <div class="actions">
     <%= f.submit "Save this shit"%>
