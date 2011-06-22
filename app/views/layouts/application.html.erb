@@ -23,10 +23,23 @@
       <div id="menu_and_messages_inner" class="inner">
         <nav id="menu">
           <ul>
-            <li><%= link_to 'Home', root_path %></li>
-            <li><%= link_to 'Add Shit', new_task_path %></li>
           </ul>
         </nav>
+        <div id="quick_add" class="left">
+          <%= form_for(@task) do |f| %>
+            <div class="field left">
+              <% if @adding_with_options == true %>
+                <%= f.text_field :title, :value => nil %>
+              <% else %>
+                <%= f.text_field :title %>
+              <% end %>
+            </div>
+            <div class="actions">
+              <%= f.submit 'Quick add', :id => 'header_task_submit' %>
+              <%= f.submit 'Add with options', :class => 'gray_button', :id => 'header_task_with_options_submit' %>
+            </div>
+          <% end %>
+        </div>
         <div id="messages" class="messages right">
           <%= render 'shared/messages' %>
         </div>
@@ -37,3 +50,5 @@
     </section>
   </body>
 </html>
+
+

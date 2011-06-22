@@ -25,11 +25,15 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(params[:task])
-
-    if @task.save
-      redirect_to :root, :notice => 'Added shit.'
-    else
+    if params[:commit] == 'Add with options'
+      @adding_with_options = true
       render :new
+    else
+      if @task.save
+        redirect_to :root, :notice => 'Added shit.'
+      else
+        render :new
+      end
     end
   end
 
@@ -37,7 +41,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update_attributes(params[:task])
-      if !@task.complete.blank?
+      if !@task.complete.blank? && !@task.schedule.blank?
         schedule_next(@task)
       end
       redirect_to :root, :notice => 'Updated shit.'
@@ -53,6 +57,8 @@ class TasksController < ApplicationController
     redirect_to :root, :notice => 'Got rid of that shit.'
   end
   
+  private
+  
   def schedule_next(task)
     next_task = Task.new(task.attributes)
     next_task.complete = nil
@@ -60,6 +66,8 @@ class TasksController < ApplicationController
       next_task.due = task.due + 1.day
     elsif task.schedule.name == 'Every week'
       next_task.due = task.due + 1.week
+    elsif task.schedule.name == 'Every 2 weeks'
+      next_task.due = task.due + 2.weeks
     elsif task.schedule.name == 'Every month'
       next_task.due = task.due + 1.month
     elsif task.schedule.name == 'Every quarter'

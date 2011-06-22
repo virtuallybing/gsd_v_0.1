@@ -1,22 +1,10 @@
 <section id="right_column" class="right">
-  <div id="add" class="margin_bottom_20">
-    <h1>Add Shit</h1>
-    <%= form_for(@task) do |f| %>
-      <div class="field">
-        <%= f.label :title %>
-        <%= f.text_field :title %>
-      </div>
-      <div class="actions">
-        <%= f.submit "Quick add this shit"%>
-      </div>
-    <% end %>
-  </div>
-  <h1>Completed Shit <span class="subtle">[<%= @tasks_completed_today.count %>]</span> <span class="toggle_next_element subtle">-/+</span></h1>
-  <div id="complete"  class="hideable">
+  <h1>Completed Shit</h1>
+  <div id="complete">
     <table id="completed_table">
       <% if @tasks_completed_today.count == 0 %>
         <tr class="top_line subtle">
-          <td>You ain't done shit</td>
+          <td>You ain't done shit today.</td>
         </tr>
       <% end %>
       <% @tasks_completed_today.each do |task| %>
@@ -28,15 +16,8 @@
   </div>
 </section>
 <section id="left_column">
-  <h1>Pending Shit <span class="subtle">[<%= @pending_tasks_count %>]</span></h1>
+  <h1>Pending Shit</h1>
   <table id="pending_table">
-    <tr>
-      <th>Due</th>
-      <th>Task</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
     <% @pending_tasks.each do |task_group, tr_class| %>
       <% task_group.each do |task| %>
         <tr class="top_line <%= tr_class %>">

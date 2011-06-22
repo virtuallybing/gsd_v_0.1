@@ -9,13 +9,15 @@
 never = Schedule.create(:name => 'Never')
 every_day = Schedule.create(:name => 'Every day')
 every_week = Schedule.create(:name => 'Every week')
+every_week = Schedule.create(:name => 'Every 2 weeks')
 every_month = Schedule.create(:name => 'Every month')
 every_quarter = Schedule.create(:name => 'Every quarter')
 every_year = Schedule.create(:name => 'Every year')
 @monday = Time.now.beginning_of_week
-@tuesday = Time.now.beginning_of_week + 1.days
+@tuesday = Time.now.beginning_of_week + 1.day
 @wednesday = Time.now.beginning_of_week + 2.days
 @sunday = Time.now.beginning_of_week + 6.days
+tweet_e_tutor = Task.create(:due => Time.now.change(:hour => 9), :title => 'Tweet for e-Tutor', :schedule_id => Schedule.find_by_name('Every day').id)
 walk_zoe = Task.create(:due => Time.now.change(:hour => 17), :title => 'Walk Zoe', :schedule_id => Schedule.find_by_name('Every day').id)
 feed_animals = Task.create(:due => Time.now.change(:hour => 9), :title => 'Feed Zoe and fish', :schedule_id => Schedule.find_by_name('Every day').id)
 rosetta_stone = Task.create(:due => Time.now.change(:hour => 17), :title => '15+ minutes of Rosetta Stone', :schedule_id => Schedule.find_by_name('Every day').id)

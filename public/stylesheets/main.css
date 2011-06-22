@@ -1,6 +1,6 @@
 @import url('reset.css');
 
-/* Pseudo-classes */
+/* pseudo-classes */
 
 body {
   font-family: arial, sans-serif;
@@ -22,25 +22,29 @@ th, td {
   padding: 6px;
   line-height: 1em;
 }
+.hideable td {
+  padding: 0px 6px 6px;
+}
 a {
   text-decoration: none;
   color: inherit;
 }
-input[type="submit"], #left_column a {
+input[type="submit"], #left_column a, #add a {
   border-radius: 7px;
   background: rgb(132, 169, 45);
-  border: none;
+  border: 1px solid rgb(121, 147, 58);
   color: rgb(255, 255, 255);
   font-family: arial, sans-serif;
   font-size: 12px;
-  padding: 3px 5px 3px;
+  padding: 2px 5px 2px;
   margin: 0px;
 }
+
 label {
   display: block;
 }
 
-/* Classes */
+/* classes */
 
 .messages {
   color: rgb(209, 249, 90);
@@ -105,30 +109,40 @@ label {
   width: 325px;
 }
 
-/* Ids */
+/* ids */
 
 #app_header {
   background: rgb(10, 14, 0);
   padding: 10px;
   color: rgb(209, 249, 90);
-  font-size: 1.7em;
+  font-size: 2em;
   font-weight: bold;
   font-family: georgia, serif;
   border-bottom: 2px solid rgb(132, 169, 45);
 }
 #menu_and_messages {
-  height: 1em;
+  height: 24px;
   padding: .25em 0em .25em;
   margin: 0px 0px 20px;
   background: rgb(102, 102, 102);
-  text-align: right;
-  
+}
+#quick_add {
+  width: 500px;
+}
+#header_task_submit {
+  margin: 1px 0px 0px 7px !important;
+}
+#quick_add input {
+  margin: 1px 0px 0px 5px;
 }
 #menu li {
   float: left;
   margin: 0px 15px 0px 0px;
   font-size: .8em;
   color: rgb(255, 255, 255);
+}
+#messages {
+  line-height: 24px;
 }
 #right_column {
   width: 275px;
@@ -155,8 +169,12 @@ label {
 #pending_table {
   width: 584px;
 }
-#left_column .gray_button {
+#left_column .gray_button, #add .gray_button, #quick_add .gray_button {
   background: rgb(102, 102, 102);
+  border: 1px solid rgb(75, 75, 75);
+}
+#add .margin_right_10 {
+  margin: 0px 10px 0px 0px;
 }
 #left_column .red_button {
   background: rgb(166, 18, 18);
