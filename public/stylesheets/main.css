@@ -108,7 +108,6 @@ label {
 .title_cell {
   width: 325px;
 }
-
 /* ids */
 
 #app_header {
@@ -143,6 +142,7 @@ label {
 }
 #messages {
   line-height: 24px;
+  font-weight: bold;
 }
 #right_column {
   width: 275px;
@@ -169,13 +169,16 @@ label {
 #pending_table {
   width: 584px;
 }
-#left_column .gray_button, #add .gray_button, #quick_add .gray_button {
-  background: rgb(102, 102, 102);
-  border: 1px solid rgb(75, 75, 75);
+#left_column .gray_button, #quick_add .gray_button {
+  background: rgb(153, 153, 153);
+  border: 1px solid rgb(136, 136, 136);
 }
 #add .margin_right_10 {
   margin: 0px 10px 0px 0px;
 }
 #left_column .red_button {
   background: rgb(166, 18, 18);
+}
+#clock {
+  margin: 0px 0px 0px 10px;
 }

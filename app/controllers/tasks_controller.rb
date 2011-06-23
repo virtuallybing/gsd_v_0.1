@@ -39,11 +39,10 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-
+    if !@task.complete.blank? && !@task.schedule.blank?
+      schedule_next(@task)
+    end
     if @task.update_attributes(params[:task])
-      if !@task.complete.blank? && !@task.schedule.blank?
-        schedule_next(@task)
-      end
       redirect_to :root, :notice => 'Updated shit.'
     else
       render :edit

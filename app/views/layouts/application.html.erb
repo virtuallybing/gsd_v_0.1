@@ -12,10 +12,12 @@
     <div id="app_header">
       <div id="app_header_inner" class="inner">
         <%= link_to 'Get Shit Done', :root %>
-        <div class="right">
-          <span class="subtle"><%= Time.now.strftime('%B %d') %></span>
-          <%= Time.now.strftime('%I:%M') %>
-          <span class="subtle"><%= Time.now.strftime('%p') %></span>
+        <div id="datetime" class="right">
+          <div id="clock" class="right">
+            <%= Time.now.strftime('%l:%M') %>
+            <span class="subtle"><%= Time.now.strftime('%p') %></span>
+          </div>
+          <span id="date" class="subtle"><%= Time.now.strftime('%-m/%-d')%></span> 
         </div>
       </div>
     </div>
