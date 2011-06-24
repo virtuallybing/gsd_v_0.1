@@ -32,21 +32,45 @@ $(document).ready(function(){
   
   /* Use datetimepicker for task form */
   
-  $('#due_date').datetimepicker({
-    stepMinute: 15,
-    minuteMax: 45,
-    ampm: true
-  });
+  var defaultDateTime = new Date();
+  defaultDateTime.setHours(17, 0);
   
-  var defaultDate = new Date();
-  defaultDate.setHours(17,0);
-  $('#due_date').datetimepicker('setDate', (defaultDate));
-  $('#include_due_date').click(function(){
-    $('#task_submit').click(function(){
-      $('#task_due').val($('#due_date').datetimepicker('getDate'));
+  function setDateTimePicker(){
+    $('#due_date').datetimepicker({
+      stepMinute: 15,
+      minuteMax: 45,
+      ampm: true
     });
-  });
+    var dueDateTime = $('#task_due').val();
+    var dueDate = new Date();
+    if(dueDateTime.length > 1){
+      var dueDateTimeSplit = $('#task_due').val().split(' ');
+      var dueDateSplit = dueDateTimeSplit[0].split('-');
+      var year = dueDateSplit[0];
+      var month = dueDateSplit[1];
+      month = month - 1;
+      var date = dueDateSplit [2];
+      var dueTimeSplit = dueDateTimeSplit[1].split(':');
+      var hour = dueTimeSplit[0];
+      hour = hour - 6;
+      var minute = dueTimeSplit[1];
+      dueDate.setFullYear(year);
+      dueDate.setMonth(month);
+      dueDate.setDate(date);
+      dueDate.setHours(hour);
+      dueDate.setMinutes(minute);
+    }
+    $('#due_date').datetimepicker('setDate', (dueDate));
+    $('#include_due_date').click(function(){
+      $('#task_submit').click(function(){
+        $('#task_due').val($('#due_date').datetimepicker('getDate'));
+      });
+    });
+  };
   
+  setDateTimePicker();
+  
+
   /* Add effects to messages in header */
   
   $('#messages').effect('slide').delay(5000).fadeOut(2000);

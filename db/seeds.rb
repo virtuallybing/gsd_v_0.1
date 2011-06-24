@@ -8,6 +8,7 @@
 
 never = Schedule.create(:name => 'Never')
 every_day = Schedule.create(:name => 'Every day')
+every_weekday = Schedule.create(:name => 'Every weekday')
 every_week = Schedule.create(:name => 'Every week')
 every_week = Schedule.create(:name => 'Every 2 weeks')
 every_month = Schedule.create(:name => 'Every month')

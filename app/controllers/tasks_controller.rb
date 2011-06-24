@@ -39,10 +39,10 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    if !@task.complete.blank? && !@task.schedule.blank? && task.schedule != 1
-      schedule_next(@task)
-    end
     if @task.update_attributes(params[:task])
+      if !@task.complete.blank? && !@task.schedule_id.blank? && @task.schedule_id != 1
+        schedule_next(@task)
+      end
       redirect_to :root, :notice => 'Updated shit.'
     else
       render :edit
@@ -63,6 +63,11 @@ class TasksController < ApplicationController
     next_task.complete = nil
     if task.schedule.name == 'Every day'
       next_task.due = task.due + 1.day
+    elsif task.schedule.name == 'Every weekday'
+      next_task.due = task.due + 1.day
+      until (1..5).include?(next_task.due.wday) do
+        next_task.due = next_task.due + 1.day
+      end 
     elsif task.schedule.name == 'Every week'
       next_task.due = task.due + 1.week
     elsif task.schedule.name == 'Every 2 weeks'
