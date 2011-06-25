@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
 
+  before_filter :authenticate_user!
+
   def index
     @task = Task.new
     @tasks_completed_today = Task.completed_today.all
@@ -30,7 +32,7 @@ class TasksController < ApplicationController
       render :new
     else
       if @task.save
-        redirect_to :root, :notice => 'Added shit.'
+        redirect_to user_path(current_user), :notice => 'Added shit.'
       else
         render :new
       end
@@ -39,11 +41,14 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    if !@task.complete.blank? && !@task.schedule.blank? && task.schedule != 1
-      schedule_next(@task)
-    end
+
     if @task.update_attributes(params[:task])
-      redirect_to :root, :notice => 'Updated shit.'
+      if !@task.complete.blank? && !@task.schedule.blank? && @task.schedule != 1
+        schedule_next(@task)
+        redirect_to user_path(current_user), :notice => 'Completed shit.'
+      else
+        redirect_to user_path(current_user), :notice => 'Updated shit.'
+      end
     else
       render :edit
     end

@@ -23,26 +23,19 @@
     </div>
     <div id="menu_and_messages">
       <div id="menu_and_messages_inner" class="inner">
-        <nav id="menu">
-          <ul>
-          </ul>
+        <nav id="menu" class="right">
+          <li>
+            <% if user_signed_in? %>
+              <%= link_to 'Sign out', destroy_user_session_path %>
+            <% else %>
+              <%= link_to 'Sign in', new_user_session_path %>
+            <% end %>
+          </li>
         </nav>
         <div id="quick_add" class="left">
-          <%= form_for(@task) do |f| %>
-            <div class="field left">
-              <% if @adding_with_options == true %>
-                <%= f.text_field :title, :value => nil %>
-              <% else %>
-                <%= f.text_field :title %>
-              <% end %>
-            </div>
-            <div class="actions">
-              <%= f.submit 'Quick add', :id => 'header_task_submit' %>
-              <%= f.submit 'Add with options', :class => 'gray_button', :id => 'header_task_with_options_submit' %>
-            </div>
-          <% end %>
+
         </div>
-        <div id="messages" class="messages right">
+        <div id="messages" class="messages left">
           <%= render 'shared/messages' %>
         </div>
       </div>

@@ -1,0 +1,75 @@
+<section id="right_column" class="right">
+  <h1>Add Shit</h1>
+  <div id="quick_add" class="right">
+    <%= form_for(@task) do |f| %>
+      <div class="field left">
+        <% if @adding_with_options == true %>
+          <%= f.text_field :title, :value => nil %>
+        <% else %>
+          <%= f.text_field :title %>
+        <% end %>
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+      </div>
+      <div class="actions">
+        <%= f.submit 'Quick add', :id => 'header_task_submit', :class => 'right' %>
+        <%= f.submit 'Add with options', :class => 'margin_right_10 gray_button right', :id => 'header_task_with_options_submit' %>
+      </div>
+    <% end %>
+  </div>
+  <h1>Completed Shit</h1>
+  <div id="complete">
+    <table id="completed_table">
+      <% if @user.tasks.completed_today.count == 0 %>
+        <tr class="top_line subtle">
+          <td>You ain't done shit today.</td>
+        </tr>
+      <% end %>
+      <% @user.tasks.completed_today.each do |task| %>
+        <tr class="top_line subtle">
+          <td><%= task.title %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</section>
+<section id="left_column">
+  <h1>Pending Shit</h1>
+  <table id="pending_table">
+    <% @pending_tasks.each do |task_group, tr_class| %>
+      <% task_group.each do |task| %>
+        <tr class="top_line <%= tr_class %>">
+          <td class="subtle due_cell">
+            <% if task.due.blank? %>
+              -
+            <% elsif task.due < Time.now %>
+              Due <%= time_ago_in_words(task.due) %> ago
+            <% else %>
+              Due in <%= distance_of_time_in_words(Time.now, task.due) %>
+            <% end %>
+          </td>
+          <td class="title_cell"><%= task.title %></td>
+          <td colspan="2">
+            <%= form_for(task) do |f| %>
+              <%= f.hidden_field :complete, :value => DateTime.now %>
+              <div class="actions">
+                <%= f.submit "Complete" %>
+              </div>
+            <% end %>
+          </td>
+          <td class="toggle_next_element subtle white_background"><div class="toggle_down"></div></td>
+        </tr>
+        <tr class="hideable default_hidden <%= tr_class %>">
+          <td class="subtle">
+            <% if !task.due.blank? %>
+              [ <%= task.due.strftime('%-m/%-d %-I:%M %p') %> ]
+            <% end %>
+          </td>
+          <td class="subtle"><%= task.description %></td>
+          <td><%= link_to 'Edit', edit_task_path(task), :class => 'gray_button' %></td>
+          <td><%= link_to 'X', task, :confirm => 'Make this shit go away?', :method => :delete, :class => 'red_button' %>
+          <td></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</section>

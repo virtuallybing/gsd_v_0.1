@@ -27,7 +27,9 @@ $(document).ready(function(){
   /* Enable .toggle_next_element to hide/show next .hideable */
   
   $('.toggle_next_element').click(function(event){
-    $(this).parent().next('.hideable').slideToggle('slow');
+    $(this).children().toggleClass('toggle_down');
+    $(this).children().toggleClass('toggle_up');
+    $(this).parent().next('.hideable').slideToggle('fast');
   });
   
   /* Use datetimepicker for task form */

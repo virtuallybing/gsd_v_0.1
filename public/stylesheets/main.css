@@ -21,6 +21,7 @@ th {
 th, td {
   padding: 6px;
   line-height: 1em;
+  vertical-align: middle;
 }
 .hideable td {
   padding: 0px 6px 6px;
@@ -50,7 +51,6 @@ label {
   color: rgb(209, 249, 90);
   font-style: italic;
   background: rgb(102, 102, 102);
-  font-size: .75em;
   clear: none;
 }
 .left {
@@ -108,6 +108,21 @@ label {
 .title_cell {
   width: 325px;
 }
+.toggle_down {
+  background: url('/images/gsd_sprites.png') -20px 0px no-repeat;
+  height: 12px;
+  width: 12px;
+}
+.toggle_up {
+  background: url('/images/gsd_sprites.png') 0px 0px no-repeat;
+  height: 12px;
+  width: 12px;
+}
+
+.margin_right_10 {
+  margin: 0px 10px 0px 0px !important; 
+}
+
 /* ids */
 
 #app_header {
@@ -120,28 +135,25 @@ label {
   border-bottom: 2px solid rgb(132, 169, 45);
 }
 #menu_and_messages {
-  height: 24px;
-  padding: .25em 0em .25em;
+  height: 1em;
+  line-height: 1em;
+  padding: .5em 0em .5em;
   margin: 0px 0px 20px;
   background: rgb(102, 102, 102);
+  font-size: .75em;
 }
 #quick_add {
-  width: 500px;
+  margin: 0px 0px 20px;
 }
-#header_task_submit {
-  margin: 1px 0px 0px 7px !important;
-}
-#quick_add input {
-  margin: 1px 0px 0px 5px;
-}
+
 #menu li {
-  float: left;
-  margin: 0px 15px 0px 0px;
-  font-size: .8em;
+  float: right;
+  margin: 0px 0px 0px 5px;
   color: rgb(255, 255, 255);
+  list-style-type: none;
+  
 }
 #messages {
-  line-height: 24px;
   font-weight: bold;
 }
 #right_column {
@@ -172,9 +184,6 @@ label {
 #left_column .gray_button, #quick_add .gray_button {
   background: rgb(153, 153, 153);
   border: 1px solid rgb(136, 136, 136);
-}
-#add .margin_right_10 {
-  margin: 0px 10px 0px 0px;
 }
 #left_column .red_button {
   background: rgb(166, 18, 18);
