@@ -9,6 +9,18 @@
     <%= csrf_meta_tag %>
   </head>
   <body>
+    <div class="inner">
+      <nav id="user_nav" class="menu">
+        <ul>
+          <% if user_signed_in? %>
+            <li><%= link_to 'Sign out', destroy_user_session_path %></li>
+            <li><%= link_to 'Account', edit_user_registration_path %></li>
+          <% else %>
+            <li><%= link_to 'Sign in', new_user_session_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
     <div id="app_header">
       <div id="app_header_inner" class="inner">
         <%= link_to 'Get Shit Done', :root %>
@@ -21,20 +33,13 @@
         </div>
       </div>
     </div>
-    <div id="menu_and_messages">
+    <div id="main_nav_and_messages">
       <div id="menu_and_messages_inner" class="inner">
-        <nav id="menu" class="right">
-          <li>
-            <% if user_signed_in? %>
-              <%= link_to 'Sign out', destroy_user_session_path %>
-            <% else %>
-              <%= link_to 'Sign in', new_user_session_path %>
-            <% end %>
-          </li>
+        <nav id="main_nav" class="menu right">
+          <% if user_signed_in? %>
+            <li><%= link_to 'List View', user_path(current_user) %></li>
+          <% end %>
         </nav>
-        <div id="quick_add" class="left">
-
-        </div>
         <div id="messages" class="messages left">
           <%= render 'shared/messages' %>
         </div>

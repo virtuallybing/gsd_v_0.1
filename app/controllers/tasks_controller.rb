@@ -15,6 +15,8 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    tag_count = Tags.count
+    tag_count.times { @task.tags.build }
   end
 
   def edit
@@ -32,7 +34,7 @@ class TasksController < ApplicationController
       render :new
     else
       if @task.save
-        redirect_to user_path(current_user), :notice => 'Added shit.'
+        redirect_to user_path(current_user), :notice => 'Added.'
       else
         render :new
       end
@@ -41,12 +43,13 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
+    params[:task][:tag_ids] ||= []
     if @task.update_attributes(params[:task])
       if !@task.complete.blank? && !@task.schedule.blank? && @task.schedule != 1
         schedule_next(@task)
-        redirect_to user_path(current_user), :notice => 'Completed shit.'
+        redirect_to user_path(current_user), :notice => 'Completed.'
       else
-        redirect_to user_path(current_user), :notice => 'Updated shit.'
+        redirect_to user_path(current_user), :notice => 'Updated.'
       end
     else
       render :edit
@@ -57,7 +60,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
 
-    redirect_to :root, :notice => 'Got rid of that shit.'
+    redirect_to user_path(current_user), :notice => 'Deleted.'
   end
   
   private

@@ -25,6 +25,7 @@ th, td {
 }
 .hideable td {
   padding: 0px 6px 6px;
+  vertical-align: top;
 }
 a {
   text-decoration: none;
@@ -59,6 +60,10 @@ label {
 .right {
   float: right;
 }
+.last-right {
+  text-align: right;
+  clear: both;
+}
 .inner {
   width: 900px;
   margin: 0px auto 0px;
@@ -67,10 +72,14 @@ label {
   font-size: .75em;
   margin: 0px 0px 7px;
 }
+.half {
+  width: 50%;
+}
 .subtle {
   color: rgb(102, 102, 102);
   font-size: .75em;
   font-style: italic;
+  line-height: 1.2em;
 }
 .default_hidden {
   display: none;
@@ -122,36 +131,46 @@ label {
 .margin_right_10 {
   margin: 0px 10px 0px 0px !important; 
 }
+.checkboxes label {
+  display: inline;
+}
+
+.menu li {
+  float: right;
+  margin: 0px 0px 0px 15px;
+  list-style-type: none;
+  font-weight: bold;
+}
 
 /* ids */
 
 #app_header {
   background: rgb(10, 14, 0);
-  padding: 10px;
+  padding: 7px 0px 7px;
   color: rgb(209, 249, 90);
   font-size: 2em;
   font-weight: bold;
   font-family: georgia, serif;
   border-bottom: 2px solid rgb(132, 169, 45);
+  border-top: 2px solid rgb(132, 169, 45);  
 }
-#menu_and_messages {
+#main_nav_and_messages {
   height: 1em;
   line-height: 1em;
   padding: .5em 0em .5em;
   margin: 0px 0px 20px;
   background: rgb(102, 102, 102);
   font-size: .75em;
+  color: rgb(255, 255, 255);
 }
 #quick_add {
   margin: 0px 0px 20px;
 }
-
-#menu li {
-  float: right;
-  margin: 0px 0px 0px 5px;
-  color: rgb(255, 255, 255);
-  list-style-type: none;
-  
+#user_nav {
+  height: 1em;
+  padding: .5em 0em .5em;
+  color: rgb(102, 102, 102);
+  font-size: .75em;
 }
 #messages {
   font-weight: bold;
@@ -160,13 +179,13 @@ label {
   width: 275px;
   padding: 0px 0px 0px 20px;
   border-left: 1px rgb(10, 14, 0) solid;
-  min-height: 590px;
   margin: 0px 0px 0px 20px;
 }
 #task_form_errors {
   padding: 5px;
-  width: 265px;
   margin: 0px 0px 10px;
+  font-size: .75em;
+  
 }
 #task_description {
   width: 269px;
@@ -190,4 +209,10 @@ label {
 }
 #clock {
   margin: 0px 0px 0px 10px;
+}
+#left_column, #form_left_column {
+  border-right: 1px rgb(12, 14, 0) solid;
+  width: 584px;
+  padding: 0px 20px 0px 0px;
+  position: absolute;
 }

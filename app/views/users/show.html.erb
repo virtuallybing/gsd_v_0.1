@@ -3,16 +3,12 @@
   <div id="quick_add" class="right">
     <%= form_for(@task) do |f| %>
       <div class="field left">
-        <% if @adding_with_options == true %>
-          <%= f.text_field :title, :value => nil %>
-        <% else %>
-          <%= f.text_field :title %>
-        <% end %>
+        <%= f.text_field :title, :tabindex => '1' %>
         <%= f.hidden_field :user_id, :value => current_user.id %>
       </div>
       <div class="actions">
-        <%= f.submit 'Quick add', :id => 'header_task_submit', :class => 'right' %>
-        <%= f.submit 'Add with options', :class => 'margin_right_10 gray_button right', :id => 'header_task_with_options_submit' %>
+        <%= f.submit 'Quick add', :id => 'header_task_submit', :class => 'right', :tabindex => '2' %>
+        <%= f.submit 'Add with options', :class => 'margin_right_10 gray_button right', :id => 'header_task_with_options_submit', :tabindex => '3' %>
       </div>
     <% end %>
   </div>
@@ -64,9 +60,13 @@
               [ <%= task.due.strftime('%-m/%-d %-I:%M %p') %> ]
             <% end %>
           </td>
-          <td class="subtle"><%= task.description %><br /><% task.tags.each do |tag| %><%= tag.name %><% end %></td>
+          <td class="subtle">
+            <% if !task.description.blank? %>
+              <%= task.description %><br />
+            <% end %>
+            Tags: <% task.tags.each do |tag| %> <%= tag.name %><% end %></td>
           <td><%= link_to 'Edit', edit_task_path(task), :class => 'gray_button' %></td>
-          <td><%= link_to 'X', task, :confirm => 'Make this shit go away?', :method => :delete, :class => 'red_button' %>
+          <td><%= link_to 'X', task, :confirm => 'Make this go away?', :method => :delete, :class => 'red_button' %>
           <td></td>
         </tr>
       <% end %>
