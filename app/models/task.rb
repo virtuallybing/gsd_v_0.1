@@ -1,8 +1,10 @@
 class Task < ActiveRecord::Base
   belongs_to :schedule
-  belongs_to :user
+  has_many :task_links
+  has_many :users, :through => :task_links
   has_and_belongs_to_many :tags
   accepts_nested_attributes_for :tags
+  accepts_nested_attributes_for :users
   validates :title, :presence => true
   scope :completed_today, where("complete < ? AND complete > ?", Time.now.end_of_day(), Time.now.beginning_of_day()).order("complete")
   scope :overdue, where("complete IS NULL AND due < ?", Time.now).order("due")

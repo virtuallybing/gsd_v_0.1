@@ -15,8 +15,10 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
-    tag_count = Tags.count
+    tag_count = Tag.count
     tag_count.times { @task.tags.build }
+    user_count = User.count
+    user_count.times { @task.users.build }
   end
 
   def edit

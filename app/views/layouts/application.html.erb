@@ -13,17 +13,18 @@
       <nav id="user_nav" class="menu">
         <ul>
           <% if user_signed_in? %>
-            <li><%= link_to 'Sign out', destroy_user_session_path %></li>
-            <li><%= link_to 'Account', edit_user_registration_path %></li>
+            <li><%= link_to 'Sign out', destroy_user_session_path, :tabindex => 101 %></li>
+            <li><%= link_to 'Account', edit_user_registration_path, :tabindex => 102 %></li>
+            <li><%= current_user.username %>:</li>
           <% else %>
-            <li><%= link_to 'Sign in', new_user_session_path %></li>
+            <li><%= link_to 'Sign in', new_user_session_path, :tabindex => 101 %></li>
           <% end %>
         </ul>
       </nav>
     </div>
     <div id="app_header">
       <div id="app_header_inner" class="inner">
-        <%= link_to 'Get Shit Done', :root %>
+        <%= link_to 'Get Shit Done', :root, :tabindex => 100 %>
         <div id="datetime" class="right">
           <div id="clock" class="right">
             <%= Time.now.strftime('%l:%M') %>
@@ -37,7 +38,7 @@
       <div id="menu_and_messages_inner" class="inner">
         <nav id="main_nav" class="menu right">
           <% if user_signed_in? %>
-            <li><%= link_to 'List View', user_path(current_user) %></li>
+            <li><%= link_to 'Shit List', user_path(current_user) %></li>
           <% end %>
         </nav>
         <div id="messages" class="messages left">

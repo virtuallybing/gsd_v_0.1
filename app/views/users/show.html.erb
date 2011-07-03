@@ -4,7 +4,7 @@
     <%= form_for(@task) do |f| %>
       <div class="field left">
         <%= f.text_field :title, :tabindex => '1' %>
-        <%= f.hidden_field :user_id, :value => current_user.id %>
+        <%= f.hidden_field :created_by, :value => current_user.id %>
       </div>
       <div class="actions">
         <%= f.submit 'Quick add', :id => 'header_task_submit', :class => 'right', :tabindex => '2' %>
@@ -21,8 +21,17 @@
         </tr>
       <% end %>
       <% @user.tasks.completed_today.each do |task| %>
-        <tr class="top_line subtle">
-          <td><%= task.title %></td>
+        <tr class="top_line">
+          <td>
+            <%= task.title %>
+            <% if task.completed_by != @user.id %>
+              <div class="subtle right">
+                by
+                <% completed_by = User.find_by_id(task.completed_by) %>
+                <%= completed_by.username.capitalize %>
+              </div>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </table>
@@ -47,6 +56,7 @@
           <td colspan="2">
             <%= form_for(task) do |f| %>
               <%= f.hidden_field :complete, :value => DateTime.now %>
+              <%= f.hidden_field :completed_by, :value => @user.id %>
               <div class="actions">
                 <%= f.submit "Complete" %>
               </div>
@@ -57,14 +67,31 @@
         <tr class="hideable default_hidden <%= tr_class %>">
           <td class="subtle">
             <% if !task.due.blank? %>
-              [ <%= task.due.strftime('%-m/%-d %-I:%M %p') %> ]
+              ( <%= task.due.strftime('%-m/%-d %-I:%M %p') %> )
             <% end %>
           </td>
           <td class="subtle">
             <% if !task.description.blank? %>
               <%= task.description %><br />
             <% end %>
-            Tags: <% task.tags.each do |tag| %> <%= tag.name %><% end %></td>
+            <% if !task.tags.empty? %>
+              Tags:
+              <% task.tags.each do |tag| %>
+                <%= tag.name %>
+              <% end %><br />
+            <% end %>
+            <% if task.users.count > 1 %>
+              Shared with: 
+              <% task.users.each do |user| %>
+                <% if user != current_user %>
+                  <%= user.username.capitalize %>
+                  <% if user.id == task.created_by %>
+                    (creator)
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </td>
           <td><%= link_to 'Edit', edit_task_path(task), :class => 'gray_button' %></td>
           <td><%= link_to 'X', task, :confirm => 'Make this go away?', :method => :delete, :class => 'red_button' %>
           <td></td>

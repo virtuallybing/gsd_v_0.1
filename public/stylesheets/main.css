@@ -196,6 +196,7 @@ label {
 }
 #completed_table {
   width: 100%;
+  font-size: .9em;
 }
 #pending_table {
   width: 584px;

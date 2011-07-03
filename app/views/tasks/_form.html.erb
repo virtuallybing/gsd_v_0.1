@@ -24,6 +24,13 @@
       <%= check_box_tag "task[tag_ids][]", tag.id, @task.tags.exists?(tag) %>
     <% end %>
   </div>
+  <div class="checkboxes field">
+    Share with:
+    <% User.all.each do |user| %>
+      <%= label_tag user.username, user.username.capitalize %>
+      <%= check_box_tag "task[user_ids][]", user.id, user == current_user ? true : @task.users.exists?(user) %>
+    <% end %>
+    </div>
   <div class="field">
     Include due date <%= check_box_tag 'include due date', 1, !@task.due.blank?, :class => 'toggle_next_element', :tabindex => '4' %>
   </div>
@@ -35,7 +42,7 @@
       <%= f.label :schedule_id, 'Repeat this task:' %>
       <%= f.select :schedule_id, Schedule.all.collect { |s| [ s.name, s.id ] }, :tabindex => '5' %>
     </div>
-    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :created_by, :value => current_user.id %>
   </div>
   <div class="actions last-right">
     <%= f.submit "Save", :tabindex => '6'%>
