@@ -51,7 +51,7 @@ buy_groceries = Task.create!(:due => @wednesday.change(:hour => 17), :title => '
 buy_groceries.tags << Tag.find_by_name('personal')
 buy_groceries.users << User.find_by_username('bing') << User.find_by_username('erin')
 mow_lawn = Task.create!(:due => @sunday.change(:hour => 17), :title => 'Mow lawn', :schedule_id => Schedule.find_by_name('Every week').id, :created_by => User.find_by_username('bing'))
-mow_lawn.tags << Tag.find_by_name('personal') << User.find_by_username('erin')
+mow_lawn.tags << Tag.find_by_name('personal')
 mow_lawn.users << User.find_by_username('bing') << User.find_by_username('erin')
 review_finances_and_schedule = Task.create!(:due => @sunday.change(:hour => 17), :title => 'Review finances and schedule with each other', :schedule_id => Schedule.find_by_name('Every week').id, :created_by => User.find_by_username('bing'))
 review_finances_and_schedule.tags << Tag.find_by_name('personal')
