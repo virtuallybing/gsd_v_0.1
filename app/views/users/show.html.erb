@@ -24,7 +24,7 @@
         <tr class="top_line">
           <td>
             <%= task.title %>
-            <% if task.completed_by != @user.id %>
+            <% if task.completed_by != current_user.id %>
               <div class="subtle right">
                 by
                 <% completed_by = User.find_by_id(task.completed_by) %>

@@ -45,7 +45,6 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    params[:task][:tag_ids] ||= []
     if @task.update_attributes(params[:task])
       if !@task.complete.blank? && !@task.schedule.blank? && @task.schedule != 1
         schedule_next(@task)
@@ -70,6 +69,8 @@ class TasksController < ApplicationController
   def schedule_next(task)
     next_task = Task.new(task.attributes)
     next_task.complete = nil
+    next_task.tags << task.tags
+    next_task.users << task.users
     if task.schedule.name == 'Every day'
       next_task.due = task.due + 1.day
     elsif task.schedule.name == 'Every weekday'
