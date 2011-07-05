@@ -4,6 +4,7 @@ class TasksController < ApplicationController
 
   def index
     @task = Task.new
+    @task.users.build
     @tasks_completed_today = Task.completed_today.all
     @tasks_overdue = Task.overdue.all
     @tasks_due_today = Task.due_today.all
@@ -31,7 +32,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(params[:task])
-    if params[:commit] == 'Add with options'
+    if params[:commit] == '+ with options'
       @adding_with_options = true
       render :new
     else

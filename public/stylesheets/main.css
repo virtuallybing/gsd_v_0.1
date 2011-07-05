@@ -31,17 +31,25 @@ a {
   text-decoration: none;
   color: inherit;
 }
-input[type="submit"], #left_column a, #add a {
-  border-radius: 7px;
-  background: rgb(132, 169, 45);
-  border: 1px solid rgb(121, 147, 58);
-  color: rgb(255, 255, 255);
-  font-family: arial, sans-serif;
-  font-size: 12px;
-  padding: 2px 5px 2px;
-  margin: 0px;
+input[type="submit"] {
+  padding: none;
+  border: none;
+  cursor: pointer;
 }
-
+#add_task_submit {
+  border: none;
+  color: rgb(255, 255, 255);
+  margin: 0px;
+  background: url('/images/gsd_sprites.png') -80px 0px no-repeat;
+  height: 20px;
+  width: 20px;
+}
+#add_task_with_options_submit {
+  background: none;
+  color: rgb(102, 102, 102);
+  border: none;
+  padding: 0px;
+}
 label {
   display: block;
 }
@@ -56,9 +64,11 @@ label {
 }
 .left {
   float: left;
+  clear: none;
 }
 .right {
   float: right;
+  clear: none;
 }
 .last-right {
   text-align: right;
@@ -79,13 +89,15 @@ label {
   color: rgb(102, 102, 102);
   font-size: .75em;
   font-style: italic;
-  line-height: 1.2em;
 }
 .default_hidden {
   display: none;
 }
 .margin_bottom_20 {
   margin: 0px 0px 20px;
+}
+.no_margin {
+  margin: 0px;
 }
 .top_line {
   border-top: 1px rgb(102, 102, 102) solid;
@@ -111,21 +123,21 @@ label {
 .ui-timepicker-div td {
   font-size: 90%;
 }
-.due_cell {
+.due_date {
   width: 125px;
-}
-.title_cell {
-  width: 325px;
+  margin: 0px 0px 0px 10px;
 }
 .toggle_down {
   background: url('/images/gsd_sprites.png') -20px 0px no-repeat;
   height: 12px;
   width: 12px;
+  margin: 4px 4px 4px 10px;
 }
 .toggle_up {
   background: url('/images/gsd_sprites.png') 0px 0px no-repeat;
   height: 12px;
   width: 12px;
+  margin: 4px 4px 4px 10px;
 }
 
 .margin_right_10 {
@@ -140,6 +152,36 @@ label {
   margin: 0px 0px 0px 15px;
   list-style-type: none;
   font-weight: bold;
+}
+.complete_icon {
+  background: url('/images/gsd_sprites.png') -40px 0px no-repeat;
+  height: 20px;
+  width: 20px;
+  margin: 0px 0px 0px 10px;
+}
+.delete_icon {
+  background: url('/images/gsd_sprites.png') -80px -40px no-repeat;
+  height: 20px;
+  width: 20px;
+  margin: 0px 0px 0px 10px;
+}
+.edit_icon {
+  background: url('/images/gsd_sprites.png') -40px -40px no-repeat;
+  height: 20px;
+  width: 20px;
+  margin: 0px 0px 0px 6px;
+}
+.pending_task {
+  padding: 6px;
+  height: 20px;
+  line-height: 20px;
+  clear: both;
+}
+.pending_task_bottom {
+  padding: 0px 6px 6px 6px;
+}
+.completed_task {
+  padding: 6px;
 }
 
 /* ids */
@@ -164,7 +206,7 @@ label {
   color: rgb(255, 255, 255);
 }
 #quick_add {
-  margin: 0px 0px 20px;
+  margin: 0px 0px 5px;
 }
 #user_nav {
   height: 1em;
@@ -192,7 +234,8 @@ label {
   height: 40px;
 }
 #task_title {
-  width: 269px;
+  width: 244px;
+  height: 14px;
 }
 #completed_table {
   width: 100%;

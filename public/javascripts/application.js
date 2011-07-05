@@ -31,8 +31,8 @@ $(document).ready(function(){
   // Enable .toggle_next_element to hide/show next .hideable
   
   $('.toggle_next_element').click(function(event){
-    $(this).children().toggleClass('toggle_down');
-    $(this).children().toggleClass('toggle_up');
+    $(this).toggleClass('toggle_down');
+    $(this).toggleClass('toggle_up');
     $(this).parent().next('.hideable').slideToggle('fast');
   });
   
