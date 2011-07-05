@@ -22,7 +22,7 @@
         </div>
       <% end %>
       <% @user.tasks.completed_today.each do |task| %>
-        <div class="top_line">
+        <div class="top_line completed_task">
           <div>
             <%= task.title %>
             <% if task.completed_by != current_user.id %>
