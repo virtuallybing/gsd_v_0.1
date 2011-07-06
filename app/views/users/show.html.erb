@@ -1,7 +1,7 @@
 <section id="right_column" class="right">
   <h1>Add</h1>
   <div id="quick_add" class="right">
-    <%= form_for(@task) do |f| %>
+    <%= form_for :task do |f| %>
       <div class="field left no_margin">
         <%= f.text_field :title, :tabindex => '1' %>
         <%= f.hidden_field :created_by, :value => current_user.id %>
@@ -16,23 +16,20 @@
   <h1>Done</h1>
   <div id="complete">
     <div id="completed_table">
-      <% if @user.tasks.completed_today.count == 0 %>
+      <% if current_user.tasks.completed_today.count == 0 %>
         <div class="top_line subtle completed_task">
           <div>You ain't done shit today.</div>
         </div>
       <% end %>
-      <% @user.tasks.completed_today.each do |task| %>
+      <% current_user.tasks.completed_today.each do |task| %>
         <div class="top_line completed_task">
-          <div>
-            <%= task.title %>
-            <% if task.completed_by != current_user.id %>
-              <div class="subtle right">
-                by
-                <% completed_by = User.find_by_id(task.completed_by) %>
-                <%= completed_by.username.capitalize %>
-              </div>
-            <% end %>
-          </div>
+          <% if task.completed_by != current_user.id %>
+            <div class="subtle right">
+              <% completed_by = User.find_by_id(task.completed_by) %>
+              <%= completed_by.username.capitalize %>
+            </div>
+          <% end %>
+          <%= task.title %>
         </div>
       <% end %>
     </div>
@@ -45,13 +42,15 @@
       <% task_group.each do |task| %>
         <div class="top_line <%= tr_class %> pending_task">
           <div class="toggle_next_element toggle_down right"></div>
-          <%= form_for(task) do |f| %>
-            <%= f.hidden_field :complete, :value => DateTime.now %>
-            <%= f.hidden_field :completed_by, :value => @user.id %>
-            <div class="actions right">
-              <%= f.submit '', :class => 'complete_icon' %>
-            </div>
-          <% end %>
+          <div class="right">
+            <%= form_for(task) do |f| %>
+              <%= f.hidden_field :complete, :value => DateTime.now %>
+              <%= f.hidden_field :completed_by, :value => current_user.id %>
+              <div class="actions right">
+                <%= f.submit '', :class => 'complete_icon' %>
+              </div>
+            <% end %>
+          </div>
           <div class="subtle due_date right">
             <% if task.due.blank? %>
               -
@@ -64,7 +63,7 @@
           <span class="title_cell"><%= task.title %></span>
         </div>
         <div class="hideable pending_task_bottom default_hidden <%= tr_class %>">
-          <div><%= button_to '', edit_task_path(task), :class => 'edit_icon right' %></div>
+          <div><%= button_to '', edit_task_path(task), :class => 'edit_icon right', :method => :get %></div>
           <div><%= button_to '', task, :confirm => 'Make this go away?', :method => :delete, :class => 'delete_icon right' %></div>
           <div class="subtle due_date right">
             <% if !task.due.blank? %>

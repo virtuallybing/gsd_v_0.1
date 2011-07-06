@@ -4,12 +4,11 @@ class TasksController < ApplicationController
 
   def index
     @task = Task.new
-    @task.users.build
-    @tasks_completed_today = Task.completed_today.all
-    @tasks_overdue = Task.overdue.all
-    @tasks_due_today = Task.due_today.all
-    @tasks_no_due_date = Task.no_due_date.all
-    @tasks_due_beyond_today = Task.due_beyond_today.all
+    @tasks_completed_today = current_user.tasks.completed_today.all
+    @tasks_overdue = current_user.tasks.overdue.all
+    @tasks_due_today = current_user.tasks.due_today.all
+    @tasks_no_due_date = current_user.tasks.no_due_date.all
+    @tasks_due_beyond_today = current_user.tasks.due_beyond_today.all
     @pending_tasks_count = @tasks_overdue.count + @tasks_due_today.count + @tasks_no_due_date.count + @tasks_due_beyond_today.count
     @pending_tasks = [ [ @tasks_overdue, 'overdue' ],[ @tasks_due_today, 'due_today' ],[ @tasks_no_due_date, 'no_due_date' ],[ @tasks_due_beyond_today, 'due_beyond_today'] ] 
   end
@@ -47,7 +46,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update_attributes(params[:task])
-      if !@task.complete.blank? && !@task.schedule.blank? && @task.schedule != 1
+      if !@task.complete.blank? && !@task.schedule_id.blank? && @task.schedule_id != 1
         schedule_next(@task)
         redirect_to user_path(current_user), :notice => 'Completed.'
       else
@@ -70,8 +69,13 @@ class TasksController < ApplicationController
   def schedule_next(task)
     next_task = Task.new(task.attributes)
     next_task.complete = nil
-    next_task.tags << task.tags
-    next_task.users << task.users
+    next_task.completed_by = nil
+    task.tags.each do |tag|
+      next_task.tags << tag
+    end
+    task.users.each do |user|
+      next_task.users << user
+    end
     if task.schedule.name == 'Every day'
       next_task.due = task.due + 1.day
     elsif task.schedule.name == 'Every weekday'
