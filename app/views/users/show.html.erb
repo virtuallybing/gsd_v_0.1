@@ -1,7 +1,7 @@
 <section id="right_column" class="right">
   <h1>Add</h1>
   <div id="quick_add" class="right">
-    <%= form_for :task do |f| %>
+    <%= form_for @task do |f| %>
       <div class="field left no_margin">
         <%= f.text_field :title, :tabindex => '1' %>
         <%= f.hidden_field :created_by, :value => current_user.id %>

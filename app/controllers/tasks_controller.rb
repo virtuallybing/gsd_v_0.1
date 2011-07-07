@@ -31,15 +31,11 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(params[:task])
-    if params[:commit] == '+ with options'
-      @adding_with_options = true
-      render :new
+
+    if @task.save
+      redirect_to user_path(current_user), :notice => 'Added.'
     else
-      if @task.save
-        redirect_to user_path(current_user), :notice => 'Added.'
-      else
-        render :new
-      end
+      render :new
     end
   end
 
