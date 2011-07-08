@@ -32,10 +32,14 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(params[:task])
 
-    if @task.save
-      redirect_to user_path(current_user), :notice => 'Added.'
-    else
+    if params[:commit] == '+ with options'
       render :new
+    else
+      if @task.save
+        redirect_to user_path(current_user), :notice => 'Added.'
+      else
+        render :new
+      end
     end
   end
 
