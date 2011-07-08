@@ -173,7 +173,7 @@ label {
 }
 .pending_task {
   padding: 6px;
-  height: 20px;
+  min-height: 20px;
   line-height: 20px;
   clear: both;
 }

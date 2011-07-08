@@ -71,17 +71,22 @@
             <% end %>
           </div>
           <span class="subtle">
+            Notes: 
             <% if !task.description.blank? %>
-              <%= task.description %><br />
-            <% end %>
+              <%= task.description %>
+            <% else %>
+              -
+            <% end %><br />
+            Tags: 
             <% if !task.tags.empty? %>
-              Tags:
               <% task.tags.each do |tag| %>
                 <%= tag.name %>
-              <% end %><br />
-            <% end %>
+              <% end %>
+              <% else %>
+              -
+            <% end %><br />
+            Shared with:
             <% if task.users.count > 1 %>
-              Shared with: 
               <% task.users.each do |user| %>
                 <% if user != current_user %>
                   <%= user.username.capitalize %>
@@ -90,6 +95,8 @@
                   <% end %>
                 <% end %>
               <% end %>
+            <% else %>
+              -
             <% end %>
           </span>
         </div>
